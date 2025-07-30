@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%= locals.title %>
+    </title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="heading">
+                <img src="/img/logo.png" alt="logo" class="logo">
+                <h1 class="title">MAKTABATUS SALAM</h1>
+            </div>
+            <div class="navbar">
+                <a href="/">HOME</a>
+                <a href="/about">ABOUT</a>
+                <a href="/notice">NOTICE</a>
+                <div class="administration-section">
+                    <button class="administration">ADMINISTRATION</button>
+                    <div class="administration-panel">
+                        <a href="/admin/library">LIBRARY</a>
+                        <a href="/admin/finance">FINANCE</a>
+                        <a href="/admin/media">MEDIA & COMMUNICATIONS</a>
+                    </div>
+                </div>
+                <a href="/committee">COMMITTEE</a>
+                <a href="/gallery">GALLERY</a>
+                <a href="/library">LIBRARY</a>
+            </div>
+        </header>
+        <main class="main">
+            <div class="library-box">
+                <table class="library-table">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Image</th>
+                            <th>Title</th>
+                            <th>Description</th>
+                            <th>Status</th>
+                        </tr>
+                        <tbody>
+                            <% for(let i = 0; i < books.length; i++){ %>
+                                <tr>
+                                    <td class="book-id"><%- books[i].id %></td>
+                                    <td class="book-image"><img class="book-image" src=<%- books[i].photo.url %> alt="book-photo"></td>
+                                    <td class="book-title"><%- books[i].title %></td>
+                                    <td class="book-description"><%- books[i].description %></td>
+                                    <td class="book-status"><%- books[i].status %></td>
+                                </tr>
+                            <% } %>
+                        </tbody>
+                    </thead>
+                </table>
+            </div>
+        </main>
+    </div>
+
+</body>
+
+</html>

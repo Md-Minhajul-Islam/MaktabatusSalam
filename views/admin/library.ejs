@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%= locals.title %>
+    </title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="heading">
+                <img src="/img/logo.png" alt="logo" class="logo">
+                <h1 class="title">MAKTABATUS SALAM</h1>
+            </div>
+            <div class="navbar">
+                <a href="/">HOME</a>
+                <a href="/about">ABOUT</a>
+                <a href="/notice">NOTICE</a>
+                <div class="administration-section">
+                    <button class="administration">ADMINISTRATION</button>
+                    <div class="administration-panel">
+                        <a href="/admin/library">LIBRARY</a>
+                        <a href="/admin/finance">FINANCE</a>
+                        <a href="/admin/media">MEDIA & COMMUNICATIONS</a>
+                    </div>
+                </div>
+                <a href="/committee">COMMITTEE</a>
+                <a href="/gallery">GALLERY</a>
+                <a href="/library">LIBRARY</a>
+            </div>
+        </header>
+        <main class="main">
+            <div class="admin-library-box">
+                <h2 class="admin-library-title">Add Book</h2>
+                <form action="/admin/library/addbook" method="POST" class="admin-library-upload-form" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="book-id-upload">Book Id:</label>
+                        <input type="text" name="book-id-upload" id="book-id-upload" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="book-image-upload">Book Photo:</label>
+                        <input type="file" id="book-image-upload" name="book-image-upload" accept="image/*" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="book-name-upload">Book Name:</label>
+                        <input type="text" id="book-name-upload" name="book-name-upload" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="book-description-upload">Book Description:</label>
+                        <textarea name="book-description-upload" id="book-description-upload" rows="5" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="book-status-upload">Book Status:</label>
+                        <select name="book-status-upload" id="book-status-upload" required>
+                            <option value="Available">Available</option>
+                            <option value="Booked">Booked</option>
+                        </select>
+                    </div>
+                    <br>
+                    <button type="submit">Submit</button>
+                </form>
+                <br>
+                <h2 class="admin-library-title">Remove Book</h2>
+                <form action="/admin/library/removebook" method="POST" class="admin-library-upload-form">
+                    <div class="form-group">
+                        <label for="book-id-remove">Book Id:</label>
+                        <input type="text" name="book-id-remove" id="book-id-remove" required>
+                    </div>
+                    <br>
+                    <button type="submit">Submit</button>
+                </form>
+                <br>
+                <h2 class="admin-library-title">Update Book</h2>
+                <form action="/admin/library/updatebook" method="POST" class="admin-library-upload-form" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="book-id-update">Book Id:</label>
+                        <input type="text" name="book-id-update" id="book-id-update" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="book-image-update">Book Photo:</label>
+                        <input type="file" id="book-image-update" name="book-image-update" accept="image/*">
+                    </div>
+                    <div class="form-group">
+                        <label for="book-name-update">Book Name:</label>
+                        <input type="text" id="book-name-update" name="book-name-update">
+                    </div>
+                    <div class="form-group">
+                        <label for="book-description-update">Book Description:</label>
+                        <textarea name="book-description-update" id="book-description-update" rows="5"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="book-status-update">Book Status:</label>
+                        <select name="book-status-update" id="book-status-update">
+                            <option value="Available">Available</option>
+                            <option value="Booked">Booked</option>
+                        </select>
+                    </div>
+                    <br>
+                    <button type="submit">Submit</button>
+                </form>
+                <br>
+            </div>
+        </main>
+    </div>
+
+</body>
+
+</html>
