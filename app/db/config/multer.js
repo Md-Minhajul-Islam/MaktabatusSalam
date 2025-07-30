@@ -1,12 +1,11 @@
-const multer = require('multer');
-const { CloudinaryStorage } = require('multer-storage-cloudinary');
-const cloudinary = require('./cloudinary');
-
+const multer = require("multer");
+const { CloudinaryStorage } = require("multer-storage-cloudinary");
+const cloudinary = require("./cloudinary");
 
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
-    folder: "Maktabatus_Salam",
+    folder: process.env.CLOUDINARY_FOLDER_NAME,
     allowed_formats: ["jpg", "jpeg", "png", "webp", "gif"],
   },
 });
