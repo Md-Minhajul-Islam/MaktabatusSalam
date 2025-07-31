@@ -26,11 +26,10 @@ router.post("/admin/library/addbook", upload.single("book-image-upload"), async 
     };
     try {
       const bookId = req.body["book-id-upload"] ?.toUpperCase();
-      const bookName = req.body["book-name-upload"];
       const bookDescription = req.body["book-description-upload"];
       const bookStatus = req.body["book-status-upload"];
 
-        if (!bookId || !bookName || !bookDescription || !bookStatus || !req.file) {
+        if (!bookId || !bookDescription || !bookStatus || !req.file) {
             throw new Error();
         }
       const bookImageUrl = req.file.path;
@@ -42,7 +41,6 @@ router.post("/admin/library/addbook", upload.single("book-image-upload"), async 
           url: bookImageUrl,
           id: bookImageId,
         },
-        title: bookName,
         description: bookDescription,
         status: bookStatus,
       });
@@ -103,9 +101,6 @@ router.post("/admin/library/updatebook", upload.single("book-image-update"), asy
         if (!book) throw new Error();
 
         // Update only if value is provided
-        if (req.body["book-name-update"]) {
-          book.title = req.body["book-name-update"];
-        }
         if (req.body["book-description-update"]) {
           book.description = req.body["book-description-update"];
         }

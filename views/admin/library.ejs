@@ -47,10 +47,6 @@
                         <input type="file" id="book-image-upload" name="book-image-upload" accept="image/*" required>
                     </div>
                     <div class="form-group">
-                        <label for="book-name-upload">Book Name:</label>
-                        <input type="text" id="book-name-upload" name="book-name-upload" required>
-                    </div>
-                    <div class="form-group">
                         <label for="book-description-upload">Book Description:</label>
                         <textarea name="book-description-upload" id="book-description-upload" rows="5" required></textarea>
                     </div>
@@ -60,7 +56,7 @@
                         </select>
                     </div>
                     <br>
-                    <button type="submit">Submit</button>
+                    <button class="submit" type="submit">Submit</button>
                 </form>
                 <br>
                 <h2 class="admin-library-title">Remove Book</h2>
@@ -70,11 +66,13 @@
                         <input type="text" name="book-id-remove" id="book-id-remove" required>
                     </div>
                     <br>
-                    <button type="submit">Submit</button>
+                    <button class="submit" type="submit">Submit</button>
                 </form>
                 <br>
                 <h2 class="admin-library-title">Update Book</h2>
+
                 <form action="/admin/library/updatebook" method="POST" class="admin-library-upload-form" enctype="multipart/form-data">
+                    <h6>*Only fill in the fields you want to update.</h6>
                     <div class="form-group">
                         <label for="book-id-update">Book Id:</label>
                         <input type="text" name="book-id-update" id="book-id-update" required>
@@ -82,10 +80,6 @@
                     <div class="form-group">
                         <label for="book-image-update">Book Photo:</label>
                         <input type="file" id="book-image-update" name="book-image-update" accept="image/*">
-                    </div>
-                    <div class="form-group">
-                        <label for="book-name-update">Book Name:</label>
-                        <input type="text" id="book-name-update" name="book-name-update">
                     </div>
                     <div class="form-group">
                         <label for="book-description-update">Book Description:</label>
@@ -97,7 +91,7 @@
                         </select>
                     </div>
                     <br>
-                    <button type="submit">Submit</button>
+                    <button class="submit" type="submit">Submit</button>
                 </form>
                 <br>
             </div>
