@@ -314,7 +314,7 @@
     font-size: 30px;
   }
   .navbar {
-    font-size: 0.7rem;
+    font-size: 0.6rem;
     padding: 0.2rem;
   }
   .navbar a {
@@ -337,10 +337,10 @@
     font-size: 0.7rem;
   }
   .news-type {
-    margin-left: 0.5rem;
+    margin-left: 0.2rem;
   }
   .news {
-    margin-left: 0.5rem;
+    margin-left: 0.25rem;
   }
 
   /* 
@@ -372,7 +372,8 @@
     margin-bottom: 0.2rem;
     font-size: 1rem;
   }
-  .message1-text, .message2-text{
+  .message1-text,
+  .message2-text {
     font-size: 0.8rem;
   }
 
@@ -421,7 +422,7 @@
     height: 70px;
     margin-bottom: 0.1rem;
   }
-  .notice-description .date{
+  .notice-description .date {
     margin-bottom: 1rem;
   }
 
