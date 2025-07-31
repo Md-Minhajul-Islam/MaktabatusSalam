@@ -70,11 +70,14 @@ router.post("/admin/library/removebook", async (req, res) => {
           throw new Error();
       }
       
-      const imageId = await Book.findOne({ id: bookId }).select('photo.id');
-      
+    const obj = await Book.findOne({ id: bookId });
+    const imageId = obj.photo.id;
+
       if (!imageId) {
           throw new Error();
-      }
+    }
+    
+    // console.log(imageId);
 
     await Book.deleteOne({ id: bookId });
     await cloudinary.uploader.destroy(imageId);
