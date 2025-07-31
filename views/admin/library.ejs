@@ -37,7 +37,8 @@
         <main class="main">
             <div class="admin-library-box">
                 <h2 class="admin-library-title">Add Book</h2>
-                <form action="/admin/library/addbook" method="POST" class="admin-library-upload-form" enctype="multipart/form-data">
+                <form action="/admin/library/addbook" method="POST" class="admin-library-upload-form"
+                    enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="book-id-upload">Book Id:</label>
                         <input type="text" name="book-id-upload" id="book-id-upload" required>
@@ -48,7 +49,8 @@
                     </div>
                     <div class="form-group">
                         <label for="book-description-upload">Book Description:</label>
-                        <textarea name="book-description-upload" id="book-description-upload" rows="5" required></textarea>
+                        <textarea name="book-description-upload" id="book-description-upload" rows="5"
+                            required></textarea>
                     </div>
                     <div class="form-group">
                         <label for="book-status-upload">Book Status:</label>
@@ -71,7 +73,8 @@
                 <br>
                 <h2 class="admin-library-title">Update Book</h2>
 
-                <form action="/admin/library/updatebook" method="POST" class="admin-library-upload-form" enctype="multipart/form-data">
+                <form action="/admin/library/updatebook" method="POST" class="admin-library-upload-form"
+                    enctype="multipart/form-data">
                     <h6>*Only fill in the fields you want to update.</h6>
                     <div class="form-group">
                         <label for="book-id-update">Book Id:</label>
@@ -96,8 +99,30 @@
                 <br>
             </div>
         </main>
+        <footer class="footer">
+            <div class="contact-section">
+                <div class="address-box">
+                    <h4 class="address-title">Address: </h4>
+                    <p class="address">Bangladesh Forest Research Institute, Chattogram, Bangladesh</p>
+                </div>
+                <div class="mail-box">
+                    <h4 class="mail-title">Email: </h4>
+                    <p class="mail-address">abcdejgh@gmail.com</p>
+                </div>
+                <div class="phone-box">
+                    <h4 class="phone-title">Phone: </h4>
+                    <p class="phone-number">(+880) 01010101010</p>
+                </div>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/people/Maktabatus-Salam-%E0%A6%AE%E0%A6%BE%E0%A6%95%E0%A6%A4%E0%A6%BE%E0%A6%AC%E0%A6%BE%E0%A6%A4%E0%A7%81%E0%A6%B8-%E0%A6%B8%E0%A6%BE%E0%A6%B2%E0%A6%BE%E0%A6%AE/61567857368448/"
+                        class="facebook-link">
+                        <img class="facebook-icon" src="/img/facebook-icon.png" alt="Facebook">
+                    </a>
+                </div>
+            </div>
+            <div class="copyright-section">&copy; Maktabatus Salam &bull; All Rights Reserved</div>
+        </footer>
     </div>
-
 </body>
 
 </html>
