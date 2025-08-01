@@ -91,9 +91,11 @@
 }
 .news-type {
   white-space: nowrap;
-  margin-left: 1rem;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
 }
 .news {
+  width: 100%;
   overflow: hidden;
   margin-left: 1rem;
 }
@@ -158,9 +160,19 @@
   font-size: 1rem;
 }
 .message-title {
+  font-size: 1.3rem;
   margin-bottom: 0.5rem;
   text-decoration: underline;
   text-decoration-color: rgba(23, 97, 23, 0.758);
+}
+.message1-text,
+.message2-text {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+.message1-author,
+.message2-author {
+  font-size: 1.1rem;
 }
 
 /* NEWS-EVENT-SECTION */
@@ -197,12 +209,21 @@
   margin-left: 0.5rem;
   font-size: 1rem;
   height: 100px;
-  white-space: nowrap;
+  padding-bottom: 0.5rem;
   overflow: hidden;
+}
+.news-event-title {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* Show only 3 lines */
+  -webkit-box-orient: vertical;
   text-overflow: ellipsis;
+  font-size: 1rem;
 }
 .date {
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.8rem;
+  font-size: 0.8rem;
+  font-weight: 600;
 }
 
 /* NOTICE-SECTION */
@@ -221,17 +242,27 @@
   font-size: 1.3rem;
   padding: 0.2rem;
 }
-.notice-description {
+.notice-box {
   width: 80%;
-  padding: 1rem;
+  padding: 0.5rem;
+  background-color: rgb(255, 252, 248);
+  margin-bottom: 0.2rem;
+  border: 1px solid black;
+}
+.notice-description {
+  height: 100px;
   background-color: rgb(255, 252, 248);
   font-size: 1rem;
-  height: 100px;
-  white-space: nowrap;
+  padding-bottom: 0.5rem;
   overflow: hidden;
+}
+.notice-title {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* Show only 3 lines */
+  -webkit-box-orient: vertical;
   text-overflow: ellipsis;
-  border: 1px solid black;
-  margin-bottom: 0.2rem;
+  font-size: 1rem;
 }
 
 /* GALLERY-SECTION */
@@ -364,17 +395,22 @@
   /* MESSAGE-SECTION */
   .message {
     width: 49vw;
-    height: 300px;
+    height: 250px;
     padding: 0.2rem;
     margin: 0.1rem;
   }
   .message-title {
     margin-bottom: 0.2rem;
-    font-size: 1rem;
+    font-size: 0.8rem;
   }
   .message1-text,
   .message2-text {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
+    margin-bottom: 0.5rem;
+  }
+  .message1-author,
+  .message2-author {
+    font-size: 0.75rem;
   }
 
   /* NEWS-EVENT-SECTION */
@@ -398,12 +434,17 @@
     object-fit: cover;
   }
   .news-event {
-    margin-left: 0.3rem;
-    font-size: 0.8rem;
-    height: 100px;
+    margin-left: 0.5rem;
+    padding-bottom: 0.3rem;
+  }
+  .news-event-title {
+    -webkit-line-clamp: 4; /* Show only 4 lines */
+    font-size: 0.75rem;
   }
   .date {
-    margin-bottom: 1.5rem;
+    margin-bottom: 0.5rem;
+    font-size: 0.7rem;
+    font-weight: 600;
   }
 
   /* NOTICE-SECTION */
@@ -415,15 +456,19 @@
     font-size: 1rem;
     padding: 0.2rem;
   }
-  .notice-description {
+  .notice-box {
     width: 100%;
-    padding: 0.5rem;
-    font-size: 0.8rem;
-    height: 70px;
+    padding: 0.2rem;
     margin-bottom: 0.1rem;
   }
-  .notice-description .date {
-    margin-bottom: 1rem;
+  .notice-description {
+    height: 100px;
+    font-size: 0.75rem;
+    padding-bottom: 0.3rem;
+  }
+  .notice-title {
+    -webkit-line-clamp: 4; /* Show only 4 lines */
+    font-size: 0.75rem;
   }
 
   /* GALLERY-SECTION */
@@ -467,7 +512,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 5rem;
+  margin-top: 3rem;
 }
 .form-group {
   display: flex;
@@ -479,6 +524,9 @@
 }
 .form-group label {
   margin-top: 1rem;
+}
+.form-group textarea {
+  width: 300px;
 }
 .submit {
   font-size: 1rem;
@@ -580,4 +628,16 @@
     max-height: 100px;
     font-size: 0.7rem;
   }
+}
+
+/* 
+  ADMIN 
+  MEDIA 
+*/
+.admin-media-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 3rem;
 }
