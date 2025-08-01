@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= locals.title %></title>
+    <title>
+        <%= locals.title %>
+    </title>
     <link rel="stylesheet" href="/css/style.css">
 </head>
+
 <body>
     <div class="container">
         <header class="header">
@@ -31,99 +35,92 @@
             </div>
             <div class="news-section">
                 <div class="news-type">Latest News:</div>
-                <div class="news">
-                    <p class="news-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Non, temporibus obcaecati nulla odio laborum labore aliquam vero iure quidem asperiores sed ducimus fugiat ab distinctio, libero cumque quia eum eaque!
-                    </p>
-                </div>
+                <% if(latestNews) { %>
+                    <div class="news">
+                        <div class="news-text">
+                            <%= latestNews.news %>
+                        </div>
+                    </div>
+                    <% } %>
             </div>
         </header>
         <main class="main">
             <div class="quran-section">
                 <div class="verse-section">
-                    <p class="verse">তোমরা কীভাবে আল্লাহ্‌কে অস্বীকার করো? অথচ তোমরা মৃত অবস্থায় ছিলে, তিনি তোমাদের জীবিত করলেন, আবার তিনি
-                        তোমাদের মৃত্যুবরণ
-                        করাবেন, তারপর পুনরায় জীবিত করবেন এবং শেষ পর্যন্ত তাঁর দিকেই তোমাদের প্রত্যাবর্তন ঘটবে।</p>
-                    <p class="verse-num">[২ : ২৮]</p>
+                    <% if(quranicVerse.length){ %>
+                        <p class="verse">
+                            <%= quranicVerse[Math.floor(Math.random() * quranicVerse.length)].verse %>
+                        </p>
+                        <p class="verse-num">
+                            <%= quranicVerse[Math.floor(Math.random() * quranicVerse.length)].verseNum %>
+                        </p>
+                        <% } %>
                 </div>
             </div>
             <div class="message-section">
                 <div class="message">
                     <h3 class="message-title">MESSAGE FROM CHIEF ADVISOR</h3>
-                    <div class="message1-text">
-                        <p>
-                            জীবনে সফল হতে হলে ধৈর্য, সময় ব্যবস্থাপনা এবং নিজেকে ভালোবাসা অত্যন্ত গুরুত্বপূর্ণ। আমরা অনেক সময় নিজেদের দুর্বল ভাবি,
-                            অন্যের সঙ্গে তুলনা করি—এতে আত্মবিশ্বাস কমে যায়। মনে রাখবেন, প্রতিটি মানুষ আলাদা, প্রতিটি যাত্রা আলাদা। প্রতিদিন কিছু
-                            নতুন শেখার চেষ্টা করুন, ত্রুটি থেকে শিখুন এবং নিজেকে উন্নত করতে সময় দিন। ভুল হলে হতাশ না হয়ে, সেটাকে শিখার অংশ হিসেবে
-                            নিন। ছোট ছোট অভ্যাস বড় পরিবর্তন আনতে পারে। নিজের লক্ষ্যে স্থির থাকুন, ধৈর্য ধরুন, আর কখনো হাল ছেড়েবেন না। আপনার চেষ্টা
-                            একদিন আপনাকে আপনার কাঙ্ক্ষিত লক্ষ্যে পৌঁছে দেবে, ইনশাআল্লাহ।
-                        </p>
-                    </div>
-                    <h4 class="message1-author">Mawlana Jubayer Hossain</h4>
+                    <% if(message) { %>
+                        <div class="message1-text">
+                            <p>
+                                <%= message.message1 %>
+                            </p>
+                        </div>
+                        <div class="message1-author">
+                            <%= message.message1Author %>
+                        </div>
+                        <% } %>
                 </div>
                 <div class="message">
                     <h3 class="message-title">MESSAGE FROM PRESIDENT</h3>
-                    <div class="message2-text">
-                        <p>
-                            জীবনে সফল হতে হলে ধৈর্য, সময় ব্যবস্থাপনা এবং নিজেকে ভালোবাসা অত্যন্ত গুরুত্বপূর্ণ। আমরা অনেক সময় নিজেদের দুর্বল ভাবি,
-                            অন্যের সঙ্গে তুলনা করি—এতে আত্মবিশ্বাস কমে যায়। মনে রাখবেন, প্রতিটি মানুষ আলাদা, প্রতিটি যাত্রা আলাদা। প্রতিদিন কিছু
-                            নতুন শেখার চেষ্টা করুন, ত্রুটি থেকে শিখুন এবং নিজেকে উন্নত করতে সময় দিন। ভুল হলে হতাশ না হয়ে, সেটাকে শিখার অংশ হিসেবে
-                            নিন। ছোট ছোট অভ্যাস বড় পরিবর্তন আনতে পারে। নিজের লক্ষ্যে স্থির থাকুন, ধৈর্য ধরুন, আর কখনো হাল ছেড়েবেন না। আপনার চেষ্টা
-                            একদিন আপনাকে আপনার কাঙ্ক্ষিত লক্ষ্যে পৌঁছে দেবে, ইনশাআল্লাহ।
-                            জীবনে সফল হতে হলে ধৈর্য, সময় ব্যবস্থাপনা এবং নিজেকে ভালোবাসা অত্যন্ত গুরুত্বপূর্ণ। আমরা অনেক সময় নিজেদের দুর্বল ভাবি,
-                            অন্যের সঙ্গে তুলনা করি—এতে আত্মবিশ্বাস কমে যায়। মনে রাখবেন, প্রতিটি মানুষ আলাদা, প্রতিটি যাত্রা আলাদা। প্রতিদিন কিছু
-                            নতুন শেখার চেষ্টা করুন, ত্রুটি থেকে শিখুন এবং নিজেকে উন্নত করতে সময় দিন। ভুল হলে হতাশ না হয়ে, সেটাকে শিখার অংশ হিসেবে
-                            নিন। ছোট ছোট অভ্যাস বড় পরিবর্তন আনতে পারে। নিজের লক্ষ্যে স্থির থাকুন, ধৈর্য ধরুন, আর কখনো হাল ছেড়েবেন না। আপনার চেষ্টা
-                            একদিন আপনাকে আপনার কাঙ্ক্ষিত লক্ষ্যে পৌঁছে দেবে, ইনশাআল্লাহ।
-                        </p>
-                    </div>
-                    <h4 class="message2-author">Md. Kholilur Rahman</h4>
+                    <% if(message) { %>
+                        <div class="message2-text">
+                            <p>
+                                <%= message.message2 %>
+                            </p>
+                        </div>
+                        <div class="message2-author">
+                            <%= message.message2Author %>
+                        </div>
+                        <% } %>
                 </div>
             </div>
             <div class="news-event-section">
                 <div class="new-event-section-title">NEWS & EVENTS</div>
-                <div class="news-event-box">
-                    <img class="news-event-img" src="/img/domo_img.jpg" alt="img">
-                    <div class="news-event">
-                        <p class="date">June 29, 2025</p>
-                        <a class="news-event-title" href="/#">Lorem ipsum dolor 
-                        </a>
-                    </div>
-                </div>
-                <div class="news-event-box">
-                    <img class="news-event-img" src="/img/domo_img.jpg" alt="img">
-                    <div class="news-event">
-                        <p class="date">June 29, 2025</p>
-                        <a class="news-event-title" href="/#">Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        </a>
-                    </div>
-                </div>
-                <div class="news-event-box">
-                    <img class="news-event-img" src="/img/domo_img.jpg" alt="img">
-                    <div class="news-event">
-                        <p class="date">June 29, 2025</p>
-                        <a class="news-event-title" href="/#">Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus distinctio at maiores labore quas recusandae, minima reprehenderit eum ut accusamus veniam sit, asperiores cupiditate sint magnam. Corporis iste veniam atque ab perspiciatis aut placeat magnam beatae voluptatibus blanditiis ex inventore, earum illum repellat enim voluptatem pariatur quis fugit ullam consectetur necessitatibus corrupti aliquam! Atque placeat exercitationem ad temporibus beatae inventore consequuntur sit possimus totam at aliquam, debitis qui quibusdam a pariatur excepturi ab obcaecati harum dolores quis, corporis voluptatem doloribus impedit. Cum dicta perferendis at obcaecati rerum, necessitatibus corporis debitis enim odio delectus in voluptatum architecto dignissimos mollitia fuga vel porro nam iste minus vitae aspernatur tempora molestias repellat! Dolor eos quidem accusantium dolore sapiente, provident aspernatur architecto ipsam magni, quae velit pariatur corrupti. Unde fuga, ratione architecto excepturi dolore placeat quia molestiae aliquid voluptatibus hic voluptate. Quisquam dignissimos aspernatur corrupti commodi voluptates corporis, nisi error. Architecto rerum, eveniet a quos fuga quaerat iure nemo porro quod quasi necessitatibus illo ducimus voluptas facere praesentium natus sed repudiandae sequi id omnis beatae ipsum provident. Perferendis deserunt exercitationem odit expedita ratione laudantium corporis, fuga dolorem sint voluptas cumque ex assumenda, natus officia explicabo eaque quo consequuntur accusamus distinctio rem! Ipsum ratione ea, repellat, totam sit vitae perspiciatis impedit vel commodi delectus accusantium perferendis quisquam. Sit, voluptatum quia ullam ipsum culpa sequi! Eum obcaecati est eos minima recusandae illo corrupti amet quae nobis tempore dolorum excepturi iusto unde consequatur, fuga magni et odio saepe ducimus ab delectus adipisci quia expedita? Reiciendis repellendus quae ea ipsum veniam velit nam non, ratione molestiae est fuga aliquam ex voluptate necessitatibus cumque, a dignissimos eum officia voluptatem. Sapiente itaque adipisci consequatur excepturi veritatis laboriosam asperiores, sequi numquam cupiditate cumque vel voluptatibus fuga consectetur ab odit a, esse quisquam doloribus. Placeat officia numquam quos eius culpa autem modi.
-                        </a>
-                    </div>
-                </div>
+                <% if(newsEvents && newsEventsPhoto){ %>
+                    <% for(let i=0; i < newsEvents.length && i < newsEventsPhoto.length; i++){ %>
+                        <div class="news-event-box">
+                            <img class="news-event-img" src=<%=newsEventsPhoto[i] %> alt="img">
+                            <div class="news-event">
+                                <p class="date">
+                                    <%= newsEvents[i].createdAt.toLocaleDateString('bn-BD', {day: '2-digit' ,
+                                        month: 'long' , year: 'numeric' }) %>
+                                </p>
+                                <a class="news-event-title" href="/gallery">
+                                    <%= newsEvents[i].description %>
+                                </a>
+                            </div>
+                        </div>
+                        <% } %>
+                            <% } %>
             </div>
             <div class="notice-section">
                 <div class="notice-section-title">NOTICE BOARD</div>
-                <div class="notice-description">
-                    <p class="date">June 29, 2025</p>
-                    <a class="notice-title" href="/#">Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere,
-                        dolorem accusamus eum repudiandae aliquid aliquam possimus fuga eligendi deleniti illum.
-                    </a>
-                </div>
-                <div class="notice-description">
-                    <p class="date">June 29, 2025</p>
-                    <a class="notice-title" href="/#">Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis commodi alias natus quis consequatur eaque quod ipsa nisi voluptatibus! Maiores similique hic totam nihil, itaque beatae qui vero vel sequi deleniti eligendi provident ab corporis eius esse iure repellat rem atque ut. Cumque quam labore hic totam reiciendis sequi saepe ullam praesentium repudiandae odio, qui quaerat dolorum illum odit, possimus non quisquam? Illum asperiores mollitia error nobis aperiam magnam, recusandae animi a molestias! Alias commodi a aut maxime, culpa omnis porro tenetur earum natus fugiat ab, veniam voluptate eos non vel voluptas rem repellat expedita nam cupiditate consequatur molestiae tempora dolore! Illum ea ad ut neque culpa molestiae quam quae, asperiores animi, est provident cupiditate dolores unde reiciendis alias architecto officia voluptatum corporis inventore commodi debitis excepturi temporibus facilis. Quibusdam voluptatibus quam ratione praesentium totam, soluta officiis. Consectetur, ipsa asperiores maiores soluta, delectus saepe similique sit ex necessitatibus dolor officia aperiam adipisci animi voluptate laboriosam sed omnis quod provident. Officiis labore nisi autem, consectetur molestias rem ratione, architecto assumenda, quam dicta odio minus soluta eveniet voluptas expedita temporibus iusto! Eos consectetur saepe sint odio doloremque pariatur animi beatae iure omnis aut totam at quod ullam sequi, magni, necessitatibus labore perspiciatis!
-                    </a>
-                </div>
-                <div class="notice-description">
-                    <p class="date">June 29, 2025</p>
-                    <a class="notice-title" href="/#">Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis, exercitationem! A inventore necessitatibus aperiam debitis aliquid, ipsam sed natus. Odio distinctio modi temporibus sit dolores, aperiam totam corporis pariatur explicabo est doloremque, vitae dolor inventore reiciendis ullam. Soluta quisquam explicabo laboriosam inventore ipsum facilis dolore ipsa labore mollitia asperiores tempora nulla a, voluptatum reprehenderit odit, libero, sapiente distinctio nostrum omnis eaque unde dicta vero? Vel blanditiis quasi fugiat odit explicabo. Cumque molestiae consequatur dignissimos velit voluptatum alias unde iure necessitatibus, tempore vel maiores pariatur non adipisci quia nam, a nostrum officia qui? Deleniti optio quos quae aut. Quia quaerat velit sit impedit similique accusamus unde, placeat vel ipsum facere reiciendis error natus eius! Dolorem itaque laudantium numquam eaque modi accusantium aperiam hic consequuntur ipsum error delectus nostrum laboriosam dolore, fuga impedit temporibus beatae architecto nulla dolores non ut alias? Neque, quidem mollitia commodi a nesciunt fugiat nihil earum eius necessitatibus explicabo ipsa vel magnam ipsam saepe cupiditate voluptatem deleniti? Qui expedita saepe autem perferendis repellat veniam architecto porro necessitatibus nesciunt! Consequuntur nesciunt doloremque beatae enim! Nemo saepe perferendis quae, reiciendis ipsum consequuntur illo repellat, accusantium doloribus enim, atque placeat! Minima quis officia quo fuga placeat nihil praesentium, rerum, aspernatur iure commodi sapiente hic dolore facilis consequuntur dolor consequatur. Eos omnis dicta unde a, eveniet reprehenderit. Illo perspiciatis iusto non voluptates sed blanditiis nihil, saepe quibusdam accusamus molestias dolorum sit obcaecati maxime facilis beatae voluptate nam ratione voluptatibus explicabo sapiente voluptas iure! Eligendi, voluptatem excepturi fuga voluptates perferendis quisquam quidem ipsum nemo soluta deserunt ut magnam facilis quod, dolorum aliquam, dignissimos rem aut ullam tenetur inventore a architecto atque! Consequatur quae maiores rerum earum quod? Rem, obcaecati! Voluptatem atque voluptates laudantium fugiat incidunt repudiandae quas nobis, accusamus itaque animi unde nam culpa cum eius odio reprehenderit. Consequatur ex facilis fugiat. Earum labore officiis itaque consequatur ad porro sint reprehenderit nam iure debitis nulla, dicta, repellendus tempore quo ipsa soluta, eaque nemo vel. Eaque, odit, doloribus, temporibus quo soluta suscipit voluptates iusto illo cupiditate molestias placeat fugiat sed. Error alias, ad omnis recusandae ea quia deleniti quibusdam nostrum perferendis dolores possimus fugit eum reprehenderit repudiandae eveniet vel repellat non. Optio minima minus voluptatum, suscipit harum explicabo a iusto sunt ut iure. Modi commodi nam velit adipisci eius laboriosam. Laboriosam, odit! Atque asperiores hic esse dolorum non perferendis, nulla ad iure, aliquid id minima neque facere quidem nobis! Officiis nulla quas blanditiis non autem impedit minima similique quos. Architecto enim et corporis repudiandae doloremque. Vero qui repudiandae consequatur tenetur eos sequi? Consequatur veniam ipsa quidem vero corporis doloremque. Ipsam, facilis. Repellat ad adipisci, itaque ipsam quidem vitae. Aspernatur, eos corrupti non porro mollitia soluta consequatur voluptatibus aliquid aliquam accusantium a sint ratione veniam. Repudiandae dolorum possimus ex placeat cumque temporibus, rerum quae aliquam eligendi, illum culpa. Doloremque repellendus numquam impedit corporis, ex consequuntur delectus ipsam nulla, quaerat consequatur architecto doloribus explicabo nihil blanditiis, id neque ratione debitis nemo temporibus laudantium quam? Architecto reiciendis molestias in soluta quae sit quas sed, ipsa cumque quia.
-                    </a>
-                </div>
+                <% if(notice){ %>
+                    <% for(let i=0; i < notice.length; i++){ %>
+                        <div class="notice-box">
+                            <div class="notice-description">
+                                <p class="date">
+                                    <%= notice[i].createdAt.toLocaleDateString('bn-BD', {day: '2-digit' , month: 'long'
+                                        , year: 'numeric' }) %>
+                                </p>
+                                <a class="notice-title" href="/notice">
+                                    <%= notice[i].notice %>
+                                </a>
+                            </div>
+                        </div>
+                        <% } %>
+                            <% } %>
             </div>
             <div class="gallery-section">
                 <div class="gallery-section-title">PHOTO GALLERY</div>
@@ -150,7 +147,8 @@
                     <p class="phone-number">(+880) 01010101010</p>
                 </div>
                 <div class="social-links">
-                    <a href="https://www.facebook.com/people/Maktabatus-Salam-%E0%A6%AE%E0%A6%BE%E0%A6%95%E0%A6%A4%E0%A6%BE%E0%A6%AC%E0%A6%BE%E0%A6%A4%E0%A7%81%E0%A6%B8-%E0%A6%B8%E0%A6%BE%E0%A6%B2%E0%A6%BE%E0%A6%AE/61567857368448/" class="facebook-link">
+                    <a href="https://www.facebook.com/people/Maktabatus-Salam-%E0%A6%AE%E0%A6%BE%E0%A6%95%E0%A6%A4%E0%A6%BE%E0%A6%AC%E0%A6%BE%E0%A6%A4%E0%A7%81%E0%A6%B8-%E0%A6%B8%E0%A6%BE%E0%A6%B2%E0%A6%BE%E0%A6%AE/61567857368448/"
+                        class="facebook-link">
                         <img class="facebook-icon" src="/img/facebook-icon.png" alt="Facebook">
                     </a>
                 </div>
@@ -159,4 +157,5 @@
         </footer>
     </div>
 </body>
+
 </html>
