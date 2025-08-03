@@ -395,6 +395,11 @@ body {
   .administration-panel {
     margin-top: 0.2rem;
   }
+
+  /* 
+    HOME
+    MAIN
+*/
   .administration-panel a {
     margin-bottom: 0.1rem;
     padding: 0.2rem;
@@ -410,11 +415,6 @@ body {
   .news {
     margin-left: 0.2rem;
   }
-
-  /* 
-    HOME
-    MAIN
-*/
 
   /* QURAN-SECTION */
   .quran-section {
@@ -432,6 +432,7 @@ body {
   /* MESSAGE-SECTION */
   .message {
     width: 49vw;
+    max-width: 250px;
     height: 250px;
     padding: 0.2rem;
     margin: 0.1rem;
