@@ -35,27 +35,12 @@
             </div>
         </header>
         <main class="main">
-            <div class="library-box">
-                <table class="library-table">
-                    <thead>
-                        <tr>
-                            <th>Id</th>
-                            <th>Image</th>
-                            <th>Description</th>
-                            <th>Status</th>
-                        </tr>
-                        <tbody>
-                            <% for(let i = 0; i < books.length; i++){ %>
-                                <tr>
-                                    <td><div class="book-id"><%= books[i].id %></div></td>
-                                    <td><img class="book-image" src=<%= books[i].photo.url %> alt="book-photo"></td>
-                                    <td><div class="book-description"> <%- books[i].description.replace(/\r?\n/g, '<br>') %> </div></td>
-                                    <td><div class="book-status"><%= books[i].status %></div></td>
-                                </tr>
-                            <% } %>
-                        </tbody>
-                    </thead>
-                </table>
+
+            <div class="about-box">
+                <div class="about-box-title">About</div>
+                <div class="about">
+                    <%- about.about.replace(/\r?\n/g, '<br>' ) %>
+                </div>
             </div>
         </main>
         <footer class="footer">
@@ -82,7 +67,6 @@
             <div class="copyright-section">&copy; Maktabatus Salam &bull; All Rights Reserved</div>
         </footer>
     </div>
-
 </body>
 
 </html>

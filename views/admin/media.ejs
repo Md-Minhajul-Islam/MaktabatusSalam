@@ -40,7 +40,7 @@
                 <br>
                 <br>
                 <h4 class="latest-news-upload-title">Add Latest News</h4>
-                <form action="/admin/library/addMediaInformation" method="POST" class="admin-media-upload-form">
+                <form action="/admin/media/addMediaInformation" method="POST" class="admin-media-upload-form">
                     <div class="form-group">
                         <label for="latest-news-upload">Latest News:</label>
                         <textarea name="latest-news-upload" id="latest-news-upload" rows="3"></textarea>
@@ -50,7 +50,8 @@
                 </form>
                 <br>
                 <h4 class="quranic-verse-upload-title">Add Quranic Verse</h4>
-                <form action="/admin/library/addMediaInformation" method="POST" class="admin-media-upload-form">
+                <form action="/admin/media/addMediaInformation" method="POST" class="admin-media-upload-form">
+                    <a class="show-all-verses" href="/admin/media/showAllVerses">All Verses</a>
                     <div class="form-group">
                         <label for="quranic-verse-num-upload">Verse Number:</label>
                         <input type="text" name="quranic-verse-num-upload" id="quranic-verse-num-upload" required>
@@ -62,7 +63,7 @@
                 </form>
                 <br>
                 <h4 class="message-upload-title">Add Message From Chief Advisor And President</h4>
-                <form action="/admin/library/addMediaInformation" method="POST" class="admin-media-upload-form">
+                <form action="/admin/media/addMediaInformation" method="POST" class="admin-media-upload-form">
                     <div class="form-group">
                         <label for="message1-upload">Message From Chief Advisor:</label>
                         <textarea name="message1-upload" id="message1-upload" rows="6"></textarea>
@@ -78,7 +79,7 @@
                 </form>
                 <br>
                 <h4 class="news-events-upload-title">Add News & Events</h4>
-                <form action="/admin/library/addMediaInformation" method="POST" class="admin-media-upload-form"
+                <form action="/admin/media/addMediaInformation" method="POST" class="admin-media-upload-form"
                     enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="news-events-id-upload">Id: *(ME001)</label>
@@ -99,7 +100,7 @@
                 </form>
                 <br>
                 <h4 class="notice-upload-title">Add Notice</h4>
-                <form action="/admin/library/addMediaInformation" method="POST" class="admin-media-upload-form">
+                <form action="/admin/media/addMediaInformation" method="POST" class="admin-media-upload-form">
                     <div class="form-group">
                         <label for="notice-id-upload">Id: *(MN001)</label>
                         <input type="text" id="notice-id-upload" name="notice-id-upload" required>
@@ -113,22 +114,43 @@
                     <button class="submit" type="submit">Submit</button>
                 </form>
                 <br>
+                <h4 class="committee-upload-title">Add Committee</h4>
+                <form action="/admin/media/addMediaInformation" method="POST" class="admin-media-upload-form">
+                    <div class="form-group">
+                        <label for="committee-upload">Committee:</label>
+                        <textarea name="committee-upload" id="committee-upload" rows="8"></textarea>
+                    </div>
+                    <br>
+                    <button class="submit" type="submit">Submit</button>
+                </form>
+                <br>
+                <h4 class="about-upload-title">Add About</h4>
+                <form action="/admin/media/addMediaInformation" method="POST" class="admin-media-upload-form">
+                    <div class="form-group">
+                        <label for="about-upload">About:</label>
+                        <textarea name="about-upload" id="about-upload" rows="8"></textarea>
+                    </div>
+                    <br>
+                    <button class="submit" type="submit">Submit</button>
+                </form>
+                <br>
                 <br>
                 <h2 class="remove-media-title">Remove Media Information</h2>
                 <br>
                 <br>
                 <h4 class="quranic-verse-remove-title">Remove Quranic Verse</h4>
-                <form action="/admin/library/removeMediaInformation" method="POST" class="admin-media-remove-form">
+                <form action="/admin/media/removeMediaInformation" method="POST" class="admin-media-remove-form">
                     <div class="form-group">
                         <label for="quranic-verse-num-remove">Verse Number:</label>
                         <input type="text" name="quranic-verse-num-remove" id="quranic-verse-num-remove" required>
                     </div>
                     <br>
                     <button class="submit" type="submit">Submit</button>
+                    
                 </form>
                 <br>
                 <h4 class="news-event-remove-title">Remove News & Events</h4>
-                <form action="/admin/library/removeMediaInformation" method="POST" class="admin-media-remove-form">
+                <form action="/admin/media/removeMediaInformation" method="POST" class="admin-media-remove-form">
                     <div class="form-group">
                         <label for="news-event-id-remove">Id:</label>
                         <input type="text" name="news-event-id-remove" id="news-event-id-remove" required>
@@ -138,7 +160,7 @@
                 </form>
                 <br>
                 <h4 class="notice-remove-title">Remove Notice</h4>
-                <form action="/admin/library/removeMediaInformation" method="POST" class="admin-media-remove-form">
+                <form action="/admin/media/removeMediaInformation" method="POST" class="admin-media-remove-form">
                     <div class="form-group">
                         <label for="notice-id-remove">Id:</label>
                         <input type="text" id="notice-id-remove" name="notice-id-remove" required>

@@ -8,6 +8,10 @@
         <%= locals.title %>
     </title>
     <link rel="stylesheet" href="/css/style.css">
+    <script>
+        const quranicVerse = <%- JSON.stringify(quranicVerse) %>;
+    </script>
+    <script src="/js/script.js"></script>
 </head>
 
 <body>
@@ -33,6 +37,8 @@
                 <a href="/gallery">GALLERY</a>
                 <a href="/library">LIBRARY</a>
             </div>
+        </header>
+        <main class="main">
             <div class="news-section">
                 <div class="news-type">Latest News:</div>
                 <% if(latestNews) { %>
@@ -41,20 +47,12 @@
                             <%= latestNews.news %>
                         </div>
                     </div>
-                    <% } %>
+                <% } %>
             </div>
-        </header>
-        <main class="main">
             <div class="quran-section">
                 <div class="verse-section">
-                    <% if(quranicVerse.length){ %>
-                        <p class="verse">
-                            <%= quranicVerse[Math.floor(Math.random() * quranicVerse.length)].verse %>
-                        </p>
-                        <p class="verse-num">
-                            <%= quranicVerse[Math.floor(Math.random() * quranicVerse.length)].verseNum %>
-                        </p>
-                        <% } %>
+                        <p class="verse"></p>
+                        <p class="verse-num"></p>
                 </div>
             </div>
             <div class="message-section">
@@ -63,7 +61,7 @@
                     <% if(message) { %>
                         <div class="message1-text">
                             <p>
-                                <%= message.message1 %>
+                                <%- message.message1.replace(/\r?\n/g, '<br>') %>
                             </p>
                         </div>
                         <div class="message1-author">
@@ -76,7 +74,7 @@
                     <% if(message) { %>
                         <div class="message2-text">
                             <p>
-                                <%= message.message2 %>
+                                <%- message.message2.replace(/\r?\n/g, '<br>') %>
                             </p>
                         </div>
                         <div class="message2-author">
@@ -96,7 +94,7 @@
                                     <%= newsEvents[i].createdAt.toLocaleDateString('bn-BD', {day: '2-digit' ,
                                         month: 'long' , year: 'numeric' }) %>
                                 </p>
-                                <a class="news-event-title" href="/gallery">
+                                <a class="news-event-title" href="/gallery/<%=newsEvents[i].id%>">
                                     <%= newsEvents[i].description %>
                                 </a>
                             </div>
@@ -114,7 +112,7 @@
                                     <%= notice[i].createdAt.toLocaleDateString('bn-BD', {day: '2-digit' , month: 'long'
                                         , year: 'numeric' }) %>
                                 </p>
-                                <a class="notice-title" href="/notice">
+                                <a class="notice-title" href="/notice/<%= notice[i].id %>">
                                     <%= notice[i].notice %>
                                 </a>
                             </div>
@@ -125,10 +123,9 @@
             <div class="gallery-section">
                 <div class="gallery-section-title">PHOTO GALLERY</div>
                 <div class="gallery-section-photos">
-                    <img class="gallery-section-photo" src="/img/domo_img.jpg" alt="img">
-                    <img class="gallery-section-photo" src="/img/domo_img.jpg" alt="img">
-                    <img class="gallery-section-photo" src="/img/domo_img.jpg" alt="img">
-                    <img class="gallery-section-photo" src="/img/domo_img.jpg" alt="img">
+                    <% for(let i = 0; i < galleryPhoto.length; i++){ %>
+                        <img class="gallery-section-photo" src=<%= galleryPhoto[i] %> alt="img">
+                    <% } %>
                 </div>
             </div>
         </main>
