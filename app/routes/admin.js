@@ -10,13 +10,161 @@ const Notice = require("../models/notice");
 const QuranicVerse = require("../models/quranic_verse");
 const Committee = require("../models/committee");
 const About = require("../models/about");
+const Admin = require('../models/admin');
 const cloudinary = require("../db/config/cloudinary");
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 
-// LIBRARY
-//-----------------------------------------------------------------------------
-//-----------------------------------------------------------------------------
+const jwtsec = process.env.JWT_SECRET;
 
-router.get("/admin/library", (req, res) => {
+
+
+function authorize(role) {
+  return function (req, res, next) {
+    const token = req.cookies.msToken;
+    if (!token) {
+      return res.redirect('/login');
+    }
+    try {
+      const decoded = jwt.verify(token, jwtsec);
+      
+      if (role !== decoded.role) {
+        return res.redirect("/login");
+      }
+      req.role = decoded;
+      next(); 
+    } catch (error) {
+      return res.redirect("/login");
+    }
+  };
+};
+
+router.get('/admin', authorize("Admin"), async (req, res) => {
+
+  locals = {
+    title: "Admin"
+  }
+  try {
+    res.render('admin/index', { locals });
+  } catch (err) {
+    console.log(err);
+    res.redirect('/');
+  }
+});
+
+
+/*
+  Register
+*/
+router.post("/admin/register", authorize("Admin"), async (req, res) => {
+  locals = {
+    title: "Admin",
+  };
+  try {
+    if (!req.body["username"] || !req.body["password"]) throw new Error();
+
+    const username = req.body["username"];
+    const password = req.body["password"];
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const newAdmin = new Admin({
+      username: username,
+      password: hashedPassword,
+    });
+    await Admin.create(newAdmin);
+    res.redirect("/admin");
+  } catch (err) {
+    console.log(err);
+    res.redirect("/");
+  }
+});
+
+
+/*
+  Remove
+*/
+
+router.post("/admin/remove", authorize("Admin"), async (req, res) => {
+  locals = {
+    title: "Admin",
+  };
+  try {
+    if (!req.body["username"] || !req.body["password"]) throw new Error();
+    const { username, password } = req.body;
+
+    const user = await Admin.findOne({ username: username });
+    if (!user) {
+      return res.status(401).json({ message: "Invalid credentials" });
+    }
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+
+    if (!isPasswordValid) {
+      return res.status(401).json({ message: "Invalid credentials" });
+    }
+    await Admin.deleteOne({ username: username });
+    res.redirect("/admin");
+  } catch (err) {
+    console.log(err);
+    res.redirect("/");
+  }
+});
+
+
+
+
+
+router.get('/login',  async (req, res) => {
+  locals = {
+    title: "Log In"
+  };
+  try {
+    res.render('admin/login', { locals });
+  } catch (err) {
+    console.log(err);
+    res.redirect('/');
+  }
+
+});
+
+/*
+  CHECK LOGIN
+*/
+router.post('/login', async (req, res) => {
+  locals = {
+    title: "Log In"
+  };
+  try {
+    const { username, password } = req.body;
+
+    const user = await Admin.findOne({ username: username });
+    if (!user) {
+      return res.status(401).json({ message: "Invalid credentials" });
+    }
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+
+    if (!isPasswordValid) {
+      return res.status(401).json({ message: "Invalid credentials" });
+    }
+
+    const token = jwt.sign({ role: username }, jwtsec);
+    res.cookie("msToken", token, { httpOnly: true, maxAge: 60*60*1000});
+    res.redirect('/');
+  } catch (err) {
+    console.log(err);
+    res.redirect('/');
+  }
+});
+
+/**
+  Logout
+*/
+router.post('/logout', (req, res) => {
+  res.clearCookie("msToken");
+  res.redirect('/');
+});
+
+
+router.get("/admin/library", authorize("Library"), (req, res) => {
   locals = {
     title: "admin/library",
   };
@@ -26,8 +174,7 @@ router.get("/admin/library", (req, res) => {
 // ADD-BOOK
 router.post(
   "/admin/library/addbook",
-  upload.single("book-image-upload"),
-  async (req, res) => {
+  upload.single("book-image-upload"), authorize("Library"), async (req, res) => {
     locals = {
       title: "admin/library",
     };
@@ -54,16 +201,16 @@ router.post(
 
       await Book.create(newBook);
 
-      res.render("admin/library", { locals });
+      res.redirect("/admin/library");
     } catch (err) {
       console.error(err);
-      res.render("admin/library", { locals });
+      res.redirect("/admin/library");
     }
   }
 );
 
 // REMOVE-BOOK
-router.post("/admin/library/removebook", async (req, res) => {
+router.post("/admin/library/removebook", authorize("Library"), async (req, res) => {
   locals = {
     title: "admin/library",
   };
@@ -86,16 +233,16 @@ router.post("/admin/library/removebook", async (req, res) => {
     await Book.deleteOne({ id: bookId });
     await cloudinary.uploader.destroy(imageId);
 
-    res.render("admin/library", { locals });
+    res.redirect("/admin/library");
   } catch (err) {
     console.error(err);
-    res.render("admin/library", { locals });
+    res.redirect("/admin/library");
   }
 });
 
 // UPDATE-BOOK
 router.post(
-  "/admin/library/updatebook",
+  "/admin/library/updatebook", authorize("Library"),
   upload.single("book-image-update"),
   async (req, res) => {
     locals = {
@@ -128,10 +275,10 @@ router.post(
 
       await book.save();
 
-      res.render("admin/library", { locals });
+      res.redirect("/admin/library");
     } catch (err) {
       console.error(err);
-      res.render("admin/library", { locals });
+      res.redirect("/admin/library");
     }
   }
 );
@@ -144,14 +291,14 @@ router.post(
   MEDIA
 */
 
-router.get("/admin/media", (req, res) => {
+router.get("/admin/media", authorize("Media"), (req, res) => {
   locals = {
     title: "admin/media",
   };
   res.render("admin/media", { locals });
 });
 
-router.post("/admin/media/addMediaInformation",upload.single("news-events-image-upload"),
+router.post("/admin/media/addMediaInformation", authorize("Media"), upload.single("news-events-image-upload"),
   async (req, res) => {
     locals = {
       title: "admin/media",
@@ -266,15 +413,15 @@ router.post("/admin/media/addMediaInformation",upload.single("news-events-image-
       }
 
 
-      res.render("admin/media", { locals });
+      res.redirect("/admin/media");
     } catch (err) {
       console.log(err);
-      res.render("admin/media", { locals });
+      res.redirect("/admin/media");
     }
   }
 );
 
-router.get("/admin/media/showAllVerses", async (req, res) => {
+router.get("/admin/media/showAllVerses", authorize("Media"), async (req, res) => {
   locals = {
     title: "All Verses",
   };
@@ -284,12 +431,12 @@ router.get("/admin/media/showAllVerses", async (req, res) => {
     res.render("admin/verses", { locals, quranicVerses });
   } catch (err) {
     console.log(err);
-    res.render("admin/media", { locals });
+    res.redirect("/admin/media");
   }
 });
 
 
-router.post("/admin/media/removeMediaInformation", async (req, res) => {
+router.post("/admin/media/removeMediaInformation", authorize("Media"), async (req, res) => {
   locals = {
     title: "admin/media",
   };
@@ -319,10 +466,10 @@ router.post("/admin/media/removeMediaInformation", async (req, res) => {
         id: req.body["notice-id-remove"]?.toUpperCase().trim(),
       });
     }
-    res.render("admin/media", { locals });
+    res.redirect("/admin/media");
   } catch (err) {
     console.log(err);
-    res.render("admin/media", { locals });
+    res.redirect("/admin/media");
   }
 });
 
