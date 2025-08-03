@@ -38,18 +38,39 @@
             </div>
         </header>
         <main class="main">
-            <div class="all-verses">
-                <div class="verses">
-                    <% for(let i=0; i < quranicVerses.length; i++){ %>
-                        <p class="verse">
-                            <span class="verse-num">
-                            <%=quranicVerses[i].verseNum%>
-                            </span>
-                            <%= quranicVerses[i].verse %> 
-                        </p>
-                        <br>
-                    <% } %>
-                </div>
+
+            <form action="/logout" method="POST" class="admin-logout-form">
+                <button class="logout-btn" type="submit">Log Out</button>
+            </form>
+
+            <div class="register-box">
+                <h2 class="register-title">Register</h2>
+                <form action="/admin/register" method="POST" class="admin-register-form">
+                    <div class="form-group">
+                        <label for="username">Username:</label>
+                        <input type="text" name="username" id="username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password:</label>
+                        <input type="password" id="password" name="password" required>
+                    </div>
+                    <br>
+                    <button class="submit" type="submit">Submit</button>
+                </form>
+                <br>
+                <h2 class="remove-title">Remove</h2>
+                <form action="/admin/remove" method="POST" class="admin-remove-form">
+                    <div class="form-group">
+                        <label for="username">Username:</label>
+                        <input type="text" name="username" id="username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password:</label>
+                        <input type="password" id="password" name="password" required>
+                    </div>
+                    <br>
+                    <button class="submit" type="submit">Submit</button>
+                </form>
             </div>
         </main>
         <footer class="footer">
