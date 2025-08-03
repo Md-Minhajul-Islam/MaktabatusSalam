@@ -1,6 +1,7 @@
 require('dotenv').config();
 
 const express = require('express');
+const cookieParser = require("cookie-parser");
 
 
 const mongoConnect = require('./app/db/config/mongodb'); 
@@ -11,6 +12,8 @@ const port = process.env.PORT || 5000;
 // to parse POST form data
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+app.use(cookieParser());
 
 
 // connect to db
