@@ -138,17 +138,23 @@ router.post('/login', async (req, res) => {
 
     const user = await Admin.findOne({ username: username });
     if (!user) {
-      return res.status(401).json({ message: "Invalid credentials" });
+      throw new Error();
     }
     const isPasswordValid = await bcrypt.compare(password, user.password);
 
     if (!isPasswordValid) {
-      return res.status(401).json({ message: "Invalid credentials" });
+      throw new Error();
     }
 
     const token = jwt.sign({ role: username }, jwtsec);
-    res.cookie("msToken", token, { httpOnly: true, maxAge: 60*60*1000});
-    res.redirect('/');
+    res.cookie("msToken", token, { httpOnly: true, maxAge: 60 * 60 * 1000 });
+    
+    if (username === 'Admin') res.redirect('/admin');
+    else if (username === 'Library') res.redirect('/admin/library');
+    else if (username === 'Media') res.redirect('/admin/media');
+    else if (username === 'Finance') res.redirect('/admin/finance');
+    else res.redirect('/');
+
   } catch (err) {
     console.log(err);
     res.redirect('/');
@@ -283,6 +289,25 @@ router.post(
   }
 );
 
+
+//-----------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
+
+/*
+  ADMIN 
+  Finance
+*/
+router.get('/admin/finance', (req, res) => {
+
+  locals = {
+    title: "admin/finance",
+  };
+  res.render("admin/finance", { locals });
+});
+
+
+
+
 //-----------------------------------------------------------------------------
 //-----------------------------------------------------------------------------
 
@@ -391,6 +416,7 @@ router.post("/admin/media/addMediaInformation", authorize("Media"), upload.singl
         const prevCommittee = await Committee.findOne();
         if (prevCommittee) {
           prevCommittee.committee = req.body['committee-upload'];
+          await prevCommittee.save();
         }
         else {
           const newCommittee = new Committee({
@@ -404,6 +430,7 @@ router.post("/admin/media/addMediaInformation", authorize("Media"), upload.singl
         const prevAbout = await About.findOne();
         if (prevAbout) {
           prevAbout.about = req.body["about-upload"];
+          await prevAbout.save();
         } else {
           const newAbout = new About({
             about: req.body["about-upload"],
