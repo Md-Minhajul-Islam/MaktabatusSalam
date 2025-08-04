@@ -86,14 +86,19 @@ body {
 .administration {
   cursor: pointer;
 }
+
 .administration-panel {
-  visibility: hidden;
+  display: none;
+}
+
+.administration-panel-visible{
   display: flex;
   flex-direction: column;
   z-index: 1;
   position: absolute;
   margin-top: 0.3rem;
 }
+
 
 
 .administration-panel a {
