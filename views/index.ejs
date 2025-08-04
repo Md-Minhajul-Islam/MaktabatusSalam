@@ -7,10 +7,12 @@
     <title>
         <%= locals.title %>
     </title>
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
     <link rel="stylesheet" href="/css/style.css">
     <script>
         const quranicVerse = <%- JSON.stringify(quranicVerse) %>;
     </script>
+
     <script src="/js/script.js"></script>
 </head>
 
@@ -28,7 +30,7 @@
                 <div class="administration-section">
                     <button class="administration">ADMINISTRATION</button>
                     <div class="administration-panel">
-                        <a href="/login">LOG IN</a>
+                        <!-- <a href="/login">LOG IN</a> -->
                         <a href="/admin">ADMIN</a>
                         <a href="/admin/library">LIBRARY</a>
                         <a href="/admin/finance">FINANCE</a>

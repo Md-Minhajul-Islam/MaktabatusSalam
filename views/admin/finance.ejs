@@ -39,24 +39,7 @@
             </div>
         </header>
         <main class="main">
-            <div class="notice-section">
-                <div class="notice-section-title">NOTICE BOARD</div>
-                <% if(notice){ %>
-                    <% for(let i=0; i < notice.length; i++){ %>
-                        <div class="notice-box">
-                            <div class="notice-description">
-                                <p class="date">
-                                    <%= notice[i].createdAt.toLocaleDateString('bn-BD', {day: '2-digit' , month: 'long'
-                                        , year: 'numeric' }) %>
-                                </p>
-                                <a class="notice-title" href="/notice/<%=notice[i].id %>">
-                                    <%= notice[i].notice %>
-                                </a>
-                            </div>
-                        </div>
-                        <% } %>
-                            <% } %>
-            </div>
+            <h2 style="color: red;">This page is under construction!</h2>
         </main>
         <footer class="footer">
             <div class="contact-section">
