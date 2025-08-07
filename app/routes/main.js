@@ -258,6 +258,11 @@ router.post('/borrow', async (req, res) => {
     if (!req.body['book-id-upload']?.trim() || !req.body['name-upload']?.trim() || !req.body['contact-upload']?.trim())
       throw new Error();
 
+    const book = await Book.findOne({
+      id: req.body["book-id-upload"]?.toUpperCase().trim(),
+    });
+    if (!book) throw new Error();
+
     const bookId = req.body['book-id-upload']?.toUpperCase().trim();
     const name = req.body['name-upload'];
     const contact = req.body['contact-upload'];

@@ -404,8 +404,8 @@ router.get("/borrowRequests", authorize("Library"), async (req, res) => {
     let bookStatus = [];
     for (let i = 0; i < requestsList.length; i++) {
       const book = await Book.findOne({ id: requestsList[i].bookId });
-      if (!book) throw new Error();
-      bookStatus.push(book.status);
+      if (!book) bookStatus.push("Undefined");
+      else bookStatus.push(book.status);
     }
     // console.log(bookStatus.length);
     res.render("admin/borrow", { locals, requestsList, bookStatus });
