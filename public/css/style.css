@@ -705,8 +705,7 @@ body {
     object-fit: cover;
   }
   .book-description {
-    max-width: 200px;
-    max-height: 100px;
+    max-height: 100px; 
     font-size: 0.7rem;
   }
   .book-status {
