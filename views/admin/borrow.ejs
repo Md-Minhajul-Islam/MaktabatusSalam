@@ -1,0 +1,43 @@
+<div class="book-borrow-box">
+    <div class="book-borrow-title">Borrow Request List</div>
+    <table class="book-borrow-table">
+        <thead>
+            <tr>
+                <th>Book Id</th>
+                <th>Requester</th>
+                <th>Book Status</th>
+                <th>Request Date</th>
+                <th>Remove</th>
+            </tr>
+        <tbody>
+            <% for(let i=0; i < requestsList.length; i++){ %>
+                <tr class="">
+                    <td class="book-id">
+                        <%= requestsList[i].bookId %>
+                    </td>
+                    <td class="person-description">
+                        <%= requestsList[i].contact %> <br>
+                            <%= requestsList[i].name %>
+                    </td>
+                    <td class="book-status">
+                        <%= bookStatus[i] %>
+                    </td>
+                    <td class="book-request-time">
+                        <%= requestsList[i].createdAt.toLocaleTimeString('en-BD', { hour: '2-digit' , minute: '2-digit'
+                            , hour12: true}) %>
+                        <br>
+                        <%= requestsList[i].createdAt.toLocaleDateString('en-UK', {day: '2-digit' , month: 'short' ,
+                        year: 'numeric' }) %>
+                    </td>
+                    <td class="remove">
+                        <form action="/removeBorrowRequest" method="POST" class="remove-borrow-request">
+                            <input type="hidden" name="id" value="<%= requestsList[i]._id %>">
+                            <button class="book-request-dlt-btn" type="submit"><img class="delete-btn" src="/img/delete-icon.png" alt="dlt-icon"></a></button>
+                        </form>
+                    </td> 
+                </tr>
+                <% } %>
+        </tbody>
+        </thead>
+    </table>
+</div>

@@ -1,82 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>
-        <%= locals.title %>
-    </title>
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="icon" href="/favicon.png" type="image/x-icon">
-    <script src="/js/script.js"></script>
-</head>
-
-<body>
-    <div class="container">
-        <header class="header">
-            <div class="heading">
-                <img src="/img/logo.png" alt="logo" class="logo">
-                <h1 class="title">MAKTABATUS SALAM</h1>
-            </div>
-            <div class="navbar">
-                <a href="/">HOME</a>
-                <a href="/about">ABOUT</a>
-                <a href="/notice">NOTICE</a>
-                <div class="administration-section">
-                    <button class="administration">ADMINISTRATION</button>
-                    <div class="administration-panel">
-                        <!-- <a href="/login">LOG IN</a> -->
-                        <a href="/admin">ADMIN</a>
-                        <a href="/admin/library">LIBRARY</a>
-                        <a href="/admin/finance">FINANCE</a>
-                        <a href="/admin/media">MEDIA & COMMUNICATIONS</a>
-                    </div>
-                </div>
-                <a href="/committee">COMMITTEE</a>
-                <a href="/gallery">GALLERY</a>
-                <a href="/library">LIBRARY</a>
-            </div>
-        </header>
-        <main class="main">
-            <div class="all-verses">
-                <div class="verses">
-                    <% for(let i=0; i < quranicVerses.length; i++){ %>
-                        <p class="verse">
-                            <span class="verse-num">
-                            <%=quranicVerses[i].verseNum%>
-                            </span>
-                            <%= quranicVerses[i].verse %> 
-                        </p>
-                        <br>
-                    <% } %>
-                </div>
-            </div>
-        </main>
-        <footer class="footer">
-            <div class="contact-section">
-                <div class="address-box">
-                    <h4 class="address-title">Address: </h4>
-                    <p class="address">Bangladesh Forest Research Institute, Chattogram, Bangladesh</p>
-                </div>
-                <div class="mail-box">
-                    <h4 class="mail-title">Email: </h4>
-                    <p class="mail-address">abcdejgh@gmail.com</p>
-                </div>
-                <div class="phone-box">
-                    <h4 class="phone-title">Phone: </h4>
-                    <p class="phone-number">(+880) 01010101010</p>
-                </div>
-                <div class="social-links">
-                    <a href="https://www.facebook.com/people/Maktabatus-Salam-%E0%A6%AE%E0%A6%BE%E0%A6%95%E0%A6%A4%E0%A6%BE%E0%A6%AC%E0%A6%BE%E0%A6%A4%E0%A7%81%E0%A6%B8-%E0%A6%B8%E0%A6%BE%E0%A6%B2%E0%A6%BE%E0%A6%AE/61567857368448/"
-                        class="facebook-link">
-                        <img class="facebook-icon" src="/img/facebook-icon.png" alt="Facebook">
-                    </a>
-                </div>
-            </div>
-            <div class="copyright-section">&copy; Maktabatus Salam &bull; All Rights Reserved</div>
-        </footer>
+<div class="all-verses">
+    <div class="verses">
+        <% for(let i=0; i < quranicVerses.length; i++){ %>
+            <p class="verse">
+                <span class="verse-num">
+                    <%=quranicVerses[i].verseNum%>
+                </span>
+                <%= quranicVerses[i].verse %>
+            </p>
+            <br>
+            <% } %>
     </div>
-</body>
-
-</html>
+</div>

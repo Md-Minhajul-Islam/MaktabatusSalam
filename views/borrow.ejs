@@ -1,0 +1,22 @@
+<div class="borrow-box">
+    <h2 class="borrow-title">Borrow Book</h2>
+    <form action="/borrow" method="POST" class="borrow-form">
+        <div class="form-group">
+            <label for="book-id-upload">Book Id: *(MS001)</label>
+            <input type="text" name="book-id-upload" id="book-id-upload" required>
+        </div>
+        <div class="form-group">
+            <label for="name-upload">Your Name:</label>
+            <input type="text" id="name-upload" name="name-upload" required>
+        </div>
+        <div class="form-group">
+            <label for="contact-upload">Phone:</label>
+            <input type="text" id="contact-upload" name="contact-upload" required>
+            </select>
+        </div>
+        <br>
+        <button class="submit" type="submit">Submit</button>
+    </form>
+    <br>
+    <h6>*If the book’s already taken or pending, we’ll add you to the queue.</h6>
+</div>

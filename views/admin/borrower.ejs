@@ -1,0 +1,49 @@
+<div class="book-borrower-box">
+    <div class="book-borrower-title">Borrower List</div>
+    <table class="book-borrower-table">
+        <thead>
+            <tr>
+                <th>Book Id</th>
+                <th>Requester</th>
+                <th>Borrow</th>
+                <th>Due</th>
+                <th>Return</th>
+                <th>Remove</th>
+            </tr>
+        <tbody>
+            <% for(let i=0; i < borrower.length; i++){ %>
+                <tr class="borrower">
+                    <td class="book-id">
+                        <%= borrower[i].bookId %>
+                    </td>
+                    <td class="person-description">
+                        <%= borrower[i].contact %> <br>
+                            <%= borrower[i].name %>
+                    </td>
+                    <td class="borrow-date">
+                        <%= new Date(borrower[i].borrow).toLocaleDateString('en-UK', {day: '2-digit' , month: 'short' ,
+                        year: 'numeric' }) %>
+                    </td>
+                    <td class="due-date">
+                        <%= new Date(borrower[i].due).toLocaleDateString('en-UK', {day: '2-digit' , month: 'short' ,
+                        year: 'numeric' }) %>
+                    </td>
+                    <td class="return-date">
+                        <% if(borrower[i].return){ %>
+                            <%= new Date(borrower[i].return).toLocaleDateString('en-UK', {day: '2-digit' , month: 'short' , year: 'numeric' }) %>
+                        <% } %>
+                        
+                    </td>
+                    <td class="remove">
+                        <form action="/removeBorrower" method="POST" class="remove-borrower">
+                            <input type="hidden" name="bookId" value="<%= borrower[i].bookId %>">
+                            <button class="book-request-dlt-btn" type="submit"><img class="delete-btn"
+                                    src="/img/delete-icon.png" alt="dlt-icon"></a></button>
+                        </form>
+                    </td>
+                </tr>
+                <% } %>
+        </tbody>
+        </thead>
+    </table>
+</div>

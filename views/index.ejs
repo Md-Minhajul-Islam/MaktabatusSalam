@@ -1,162 +1,94 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>
-        <%= locals.title %>
-    </title>
-    <link rel="icon" href="/favicon.png" type="image/x-icon">
-    <link rel="stylesheet" href="/css/style.css">
-    <script>
-        const quranicVerse = <%- JSON.stringify(quranicVerse) %>;
-    </script>
-
-    <script src="/js/script.js"></script>
-</head>
-
-<body>
-    <div class="container">
-        <header class="header">
-            <div class="heading">
-                <img src="/img/logo.png" alt="logo" class="logo">
-                <h1 class="title">MAKTABATUS SALAM</h1>
+<div class="news-section">
+    <div class="news-type">Latest News:</div>
+    <% if(latestNews) { %>
+        <div class="news">
+            <div class="news-text">
+                <%= latestNews.news %>
             </div>
-            <div class="navbar">
-                <a href="/">HOME</a>
-                <a href="/about">ABOUT</a>
-                <a href="/notice">NOTICE</a>
-                <div class="administration-section">
-                    <button class="administration">ADMINISTRATION</button>
-                    <div class="administration-panel">
-                        <!-- <a href="/login">LOG IN</a> -->
-                        <a href="/admin">ADMIN</a>
-                        <a href="/admin/library">LIBRARY</a>
-                        <a href="/admin/finance">FINANCE</a>
-                        <a href="/admin/media">MEDIA & COMMUNICATIONS</a>
-                    </div>
+        </div>
+        <% } %>
+</div>
+<div class="quran-section">
+    <% if(quranicVerse){ %>
+        <script>
+            const quranicVerse = <%- JSON.stringify(quranicVerse) %>;
+        </script>
+    <% } %>
+    <div class="verse-section">
+        <p class="verse"></p>
+        <p class="verse-num"></p>
+    </div>
+</div>
+<div class="message-section">
+    <div class="message">
+        <h3 class="message-title">MESSAGE FROM CHIEF ADVISOR</h3>
+        <% if(message) { %>
+                <div class="message1-text">
+                    <p>
+                        <%- message.message1.replace(/\r?\n/g, '<br>' ) %>
+                    </p>
                 </div>
-                <a href="/committee">COMMITTEE</a>
-                <a href="/gallery">GALLERY</a>
-                <a href="/library">LIBRARY</a>
+                <div class="message1-author">
+                    <%= message.message1Author %>
+                </div>
+            <% } %>
+    </div>
+    <div class="message">
+        <h3 class="message-title">MESSAGE FROM PRESIDENT</h3>
+        <% if(message) { %>
+            <div class="message2-text">
+                <p>
+                    <%- message.message2.replace(/\r?\n/g, '<br>' ) %>
+                </p>
             </div>
-        </header>
-        <main class="main">
-            <div class="news-section">
-                <div class="news-type">Latest News:</div>
-                <% if(latestNews) { %>
-                    <div class="news">
-                        <div class="news-text">
-                            <%= latestNews.news %>
-                        </div>
-                    </div>
-                <% } %>
+            <div class="message2-author">
+                <%= message.message2Author %>
             </div>
-            <div class="quran-section">
-                <div class="verse-section">
-                        <p class="verse"></p>
-                        <p class="verse-num"></p>
-                </div>
-            </div>
-            <div class="message-section">
-                <div class="message">
-                    <h3 class="message-title">MESSAGE FROM CHIEF ADVISOR</h3>
-                    <% if(message) { %>
-                        <div class="message1-text">
-                            <p>
-                                <%- message.message1.replace(/\r?\n/g, '<br>') %>
-                            </p>
-                        </div>
-                        <div class="message1-author">
-                            <%= message.message1Author %>
-                        </div>
-                        <% } %>
-                </div>
-                <div class="message">
-                    <h3 class="message-title">MESSAGE FROM PRESIDENT</h3>
-                    <% if(message) { %>
-                        <div class="message2-text">
-                            <p>
-                                <%- message.message2.replace(/\r?\n/g, '<br>') %>
-                            </p>
-                        </div>
-                        <div class="message2-author">
-                            <%= message.message2Author %>
-                        </div>
-                        <% } %>
-                </div>
-            </div>
-            <div class="news-event-section">
-                <div class="new-event-section-title">NEWS & EVENTS</div>
-                <% if(newsEvents && newsEventsPhoto){ %>
-                    <% for(let i=0; i < newsEvents.length && i < newsEventsPhoto.length; i++){ %>
-                        <div class="news-event-box">
-                            <img class="news-event-img" src=<%=newsEventsPhoto[i] %> alt="img">
-                            <div class="news-event">
-                                <p class="date">
-                                    <%= newsEvents[i].createdAt.toLocaleDateString('bn-BD', {day: '2-digit' ,
-                                        month: 'long' , year: 'numeric' }) %>
-                                </p>
-                                <a class="news-event-title" href="/gallery/<%=newsEvents[i].id%>">
-                                    <%= newsEvents[i].description %>
-                                </a>
-                            </div>
-                        </div>
-                        <% } %>
-                            <% } %>
-            </div>
-            <div class="notice-section">
-                <div class="notice-section-title">NOTICE BOARD</div>
-                <% if(notice){ %>
-                    <% for(let i=0; i < notice.length; i++){ %>
-                        <div class="notice-box">
-                            <div class="notice-description">
-                                <p class="date">
-                                    <%= notice[i].createdAt.toLocaleDateString('bn-BD', {day: '2-digit' , month: 'long'
-                                        , year: 'numeric' }) %>
-                                </p>
-                                <a class="notice-title" href="/notice/<%= notice[i].id %>">
-                                    <%= notice[i].notice %>
-                                </a>
-                            </div>
-                        </div>
-                        <% } %>
-                            <% } %>
-            </div>
-            <div class="gallery-section">
-                <div class="gallery-section-title">PHOTO GALLERY</div>
-                <div class="gallery-section-photos">
-                    <% for(let i = 0; i < galleryPhoto.length; i++){ %>
-                        <img class="gallery-section-photo" src=<%= galleryPhoto[i] %> alt="img">
-                    <% } %>
-                </div>
-            </div>
-        </main>
-        <footer class="footer">
-            <div class="contact-section">
-                <div class="address-box">
-                    <h4 class="address-title">Address: </h4>
-                    <p class="address">Bangladesh Forest Research Institute, Chattogram, Bangladesh</p>
-                </div>
-                <div class="mail-box">
-                    <h4 class="mail-title">Email: </h4>
-                    <p class="mail-address">abcdejgh@gmail.com</p>
-                </div>
-                <div class="phone-box">
-                    <h4 class="phone-title">Phone: </h4>
-                    <p class="phone-number">(+880) 01010101010</p>
-                </div>
-                <div class="social-links">
-                    <a href="https://www.facebook.com/people/Maktabatus-Salam-%E0%A6%AE%E0%A6%BE%E0%A6%95%E0%A6%A4%E0%A6%BE%E0%A6%AC%E0%A6%BE%E0%A6%A4%E0%A7%81%E0%A6%B8-%E0%A6%B8%E0%A6%BE%E0%A6%B2%E0%A6%BE%E0%A6%AE/61567857368448/"
-                        class="facebook-link">
-                        <img class="facebook-icon" src="/img/facebook-icon.png" alt="Facebook">
+            <% } %>
+    </div>
+</div>
+<div class="news-event-section">
+    <div class="new-event-section-title">NEWS & EVENTS</div>
+    <% if(newsEvents && newsEventsPhoto){ %>
+        <% for(let i=0; i < newsEvents.length && i < newsEventsPhoto.length; i++){ %>
+            <div class="news-event-box">
+                <img class="news-event-img" src=<%=newsEventsPhoto[i] %> alt="img">
+                <div class="news-event">
+                    <p class="date">
+                        <%= newsEvents[i].createdAt.toLocaleDateString('bn-BD', {day: '2-digit' , month: 'long' ,
+                            year: 'numeric' }) %>
+                    </p>
+                    <a class="news-event-title" href="/gallery/<%=newsEvents[i].id%>">
+                        <%= newsEvents[i].description %>
                     </a>
                 </div>
             </div>
-            <div class="copyright-section">&copy; Maktabatus Salam &bull; All Rights Reserved</div>
-        </footer>
+            <% } %>
+                <% } %>
+</div>
+<div class="notice-section">
+    <div class="notice-section-title">NOTICE BOARD</div>
+    <% if(notice){ %>
+        <% for(let i=0; i < notice.length; i++){ %>
+            <div class="notice-box">
+                <div class="notice-description">
+                    <p class="date">
+                        <%= notice[i].createdAt.toLocaleDateString('bn-BD', {day: '2-digit' , month: 'long' ,
+                            year: 'numeric' }) %>
+                    </p>
+                    <a class="notice-title" href="/notice/<%= notice[i].id %>">
+                        <%= notice[i].notice %>
+                    </a>
+                </div>
+            </div>
+            <% } %>
+                <% } %>
+</div>
+<div class="gallery-section">
+    <div class="gallery-section-title">PHOTO GALLERY</div>
+    <div class="gallery-section-photos">
+        <% for(let i=0; i < galleryPhoto.length; i++){ %>
+            <img class="gallery-section-photo" src=<%=galleryPhoto[i] %> alt="img">
+            <% } %>
     </div>
-</body>
-
-</html>
+</div>
