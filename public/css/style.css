@@ -231,6 +231,7 @@ body {
   -webkit-box-orient: vertical;
   text-overflow: ellipsis;
   font-size: 1rem;
+  text-align: justify;
 }
 .single-news-event-description {
   font-size: 1rem;
@@ -291,6 +292,7 @@ body {
   -webkit-box-orient: vertical;
   text-overflow: ellipsis;
   font-size: 1rem;
+  text-align: justify;
 }
 .single-notice {
   font-size: 1rem;
