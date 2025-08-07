@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const upload = require("../db/config/multer");
+
+//Schemas
 const Book = require("../models/book");
 const LatestNews = require("../models/latest_news");
 const Message = require("../models/message");
@@ -10,48 +12,49 @@ const Notice = require("../models/notice");
 const QuranicVerse = require("../models/quranic_verse");
 const Committee = require("../models/committee");
 const About = require("../models/about");
-const Admin = require('../models/admin');
+const Admin = require("../models/admin");
+const Borrow = require("../models/borrow");
+const Borrower = require('../models/borrower');
+const Footer = require('../models/footer');
+
+
 const cloudinary = require("../db/config/cloudinary");
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt');
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 
 const jwtsec = process.env.JWT_SECRET;
-
-
 
 function authorize(role) {
   return function (req, res, next) {
     const token = req.cookies.msToken;
     if (!token) {
-      return res.redirect('/login');
+      return res.redirect("/login");
     }
     try {
       const decoded = jwt.verify(token, jwtsec);
-      
+
       if (role !== decoded.role) {
         return res.redirect("/login");
       }
       req.role = decoded;
-      next(); 
+      next();
     } catch (error) {
       return res.redirect("/login");
     }
   };
-};
+}
 
-router.get('/admin', authorize("Admin"), async (req, res) => {
-
+router.get("/admin", authorize("Admin"), async (req, res) => {
   locals = {
-    title: "Admin"
-  }
+    title: "Admin",
+  };
   try {
-    res.render('admin/index', { locals });
+    res.render("admin/index", { locals });
   } catch (err) {
     console.log(err);
-    res.redirect('/');
+    res.redirect("/");
   }
 });
-
 
 /*
   Register
@@ -78,7 +81,6 @@ router.post("/admin/register", authorize("Admin"), async (req, res) => {
     res.redirect("/");
   }
 });
-
 
 /*
   Remove
@@ -109,29 +111,24 @@ router.post("/admin/remove", authorize("Admin"), async (req, res) => {
   }
 });
 
-
-
-
-
-router.get('/login',  async (req, res) => {
+router.get("/login", async (req, res) => {
   locals = {
-    title: "Log In"
+    title: "Log In",
   };
   try {
-    res.render('admin/login', { locals });
+    res.render("admin/login", { locals });
   } catch (err) {
     console.log(err);
-    res.redirect('/');
+    res.redirect("/");
   }
-
 });
 
 /*
   CHECK LOGIN
 */
-router.post('/login', async (req, res) => {
+router.post("/login", async (req, res) => {
   locals = {
-    title: "Log In"
+    title: "Log In",
   };
   try {
     const { username, password } = req.body;
@@ -148,27 +145,25 @@ router.post('/login', async (req, res) => {
 
     const token = jwt.sign({ role: username }, jwtsec);
     res.cookie("msToken", token, { httpOnly: true, maxAge: 60 * 60 * 1000 });
-    
-    if (username === 'Admin') res.redirect('/admin');
-    else if (username === 'Library') res.redirect('/admin/library');
-    else if (username === 'Media') res.redirect('/admin/media');
-    else if (username === 'Finance') res.redirect('/admin/finance');
-    else res.redirect('/');
 
+    if (username === "Admin") res.redirect("/admin");
+    else if (username === "Library") res.redirect("/admin/library");
+    else if (username === "Media") res.redirect("/admin/media");
+    else if (username === "Finance") res.redirect("/admin/finance");
+    else res.redirect("/");
   } catch (err) {
     console.log(err);
-    res.redirect('/');
+    res.redirect("/");
   }
 });
 
 /**
   Logout
 */
-router.post('/logout', (req, res) => {
+router.post("/logout", (req, res) => {
   res.clearCookie("msToken");
-  res.redirect('/');
+  res.redirect("/");
 });
-
 
 router.get("/admin/library", authorize("Library"), (req, res) => {
   locals = {
@@ -180,7 +175,9 @@ router.get("/admin/library", authorize("Library"), (req, res) => {
 // ADD-BOOK
 router.post(
   "/admin/library/addbook",
-  upload.single("book-image-upload"), authorize("Library"), async (req, res) => {
+  upload.single("book-image-upload"),
+  authorize("Library"),
+  async (req, res) => {
     locals = {
       title: "admin/library",
     };
@@ -216,39 +213,44 @@ router.post(
 );
 
 // REMOVE-BOOK
-router.post("/admin/library/removebook", authorize("Library"), async (req, res) => {
-  locals = {
-    title: "admin/library",
-  };
-  try {
-    const bookId = req.body["book-id-remove"]?.toUpperCase().trim();
+router.post(
+  "/admin/library/removebook",
+  authorize("Library"),
+  async (req, res) => {
+    locals = {
+      title: "admin/library",
+    };
+    try {
+      const bookId = req.body["book-id-remove"]?.toUpperCase().trim();
 
-    if (!bookId) {
-      throw new Error();
+      if (!bookId) {
+        throw new Error();
+      }
+
+      const obj = await Book.findOne({ id: bookId });
+      const imageId = obj.photo.id;
+
+      if (!imageId) {
+        throw new Error();
+      }
+
+      // console.log(imageId);
+
+      await Book.deleteOne({ id: bookId });
+      await cloudinary.uploader.destroy(imageId);
+
+      res.redirect("/admin/library");
+    } catch (err) {
+      console.error(err);
+      res.redirect("/admin/library");
     }
-
-    const obj = await Book.findOne({ id: bookId });
-    const imageId = obj.photo.id;
-
-    if (!imageId) {
-      throw new Error();
-    }
-
-    // console.log(imageId);
-
-    await Book.deleteOne({ id: bookId });
-    await cloudinary.uploader.destroy(imageId);
-
-    res.redirect("/admin/library");
-  } catch (err) {
-    console.error(err);
-    res.redirect("/admin/library");
   }
-});
+);
 
 // UPDATE-BOOK
 router.post(
-  "/admin/library/updatebook", authorize("Library"),
+  "/admin/library/updatebook",
+  authorize("Library"),
   upload.single("book-image-update"),
   async (req, res) => {
     locals = {
@@ -289,6 +291,148 @@ router.post(
   }
 );
 
+router.post("/admin/library/addborrower", authorize("Library"), async (req, res) => {
+  locals = {
+    title: "admin/library"
+  };
+  try {
+    if (!req.body['book-id-upload'] || !req.body['borrower-name-upload'] || !req.body['borrower-contact-upload']
+      || !req.body['borrow-date-upload'] || !req.body['due-date-upload']) throw new Error();
+      
+    const book = await Book.findOne({ id: req.body['book-id-upload']?.toUpperCase().trim()});
+    if (!book) throw new Error();
+  
+    const newBorrower = new Borrower({
+      bookId: req.body['book-id-upload']?.toUpperCase().trim(),
+      name: req.body['borrower-name-upload'],
+      contact: req.body['borrower-contact-upload'],
+      borrow: req.body['borrow-date-upload'],
+      due: req.body['due-date-upload'],
+    });
+
+    book.status = `Taken by ${req.body["borrower-name-upload"]}`;
+    console.log(book.status);
+    await book.save();
+    await Borrower.create(newBorrower);
+
+    res.redirect('/admin/library');
+  } catch (err) {
+
+    console.log(err);
+    res.redirect('/admin/library');
+  }
+
+});
+
+
+router.post("/removeBorrower", authorize("Library"), async (req, res) => {
+  locals = {
+    title: "Error",
+  };
+  try {
+    if (!req.body["bookId"]) throw new Error();
+
+    const book = await Book.findOne({ id: req.body['bookId']?.toUpperCase().trim() });
+    if (!book) throw new Error();
+
+    await Borrower.findOneAndDelete({ bookId: req.body["bookId"]?.toUpperCase().trim() });
+    
+    book.status = 'Available';
+    await book.save();
+
+    res.redirect("/borrowers");
+  } catch (err) {
+    console.log(err);
+    res.render("error", { locals });
+  }
+});
+
+router.post("/admin/library/updateBookReturnDate", authorize('Library'), async (req, res) => {
+  locals = {
+    title: "admin/library",
+  };
+  try {
+    if (!req.body['book-id-upload'] || !req.body['return-date-upload']) throw new Error();
+
+    const borrower = await Borrower.findOne({ bookId: req.body["book-id-upload"]?.toUpperCase().trim() });
+    if (!borrower) throw new Error();
+
+    const book = await Book.findOne({ id: req.body['book-id-upload']?.toUpperCase().trim() });
+    if (!book) throw new Error();
+
+    book.status = 'Available';
+    await book.save();
+
+    borrower.return = req.body["return-date-upload"];
+    await borrower.save();
+
+    res.redirect('/admin/library');
+  } catch (err) {
+    console.log(err);
+    res.redirect('/admin/library');
+  }
+});
+
+router.get("/borrowers", authorize('Library'), async (req, res) => {
+  
+  locals = {
+    title: "Borrowers",
+  };
+  try {
+    const borrower = await Borrower.find().sort({borrow : -1});
+    if (!borrower || borrower.length === 0) throw new Error();
+    
+    res.render('admin/borrower', { locals, borrower });
+  } catch (err) {
+    console.log(err);
+    res.render('notFound');
+  }
+
+});
+
+
+
+
+router.get("/borrowRequests", authorize("Library"), async (req, res) => {
+  locals = {
+    title: "Request List",
+  };
+  try {
+    const requestsList = await Borrow.find().sort({ createdAt: 1 });
+    if (!requestsList || requestsList.length === 0) throw new Error();
+
+    let bookStatus = [];
+    for (let i = 0; i < requestsList.length; i++) {
+      const book = await Book.findOne({ id: requestsList[i].bookId });
+      if (!book) throw new Error();
+      bookStatus.push(book.status);
+    }
+    // console.log(bookStatus.length);
+    res.render("admin/borrow", { locals, requestsList, bookStatus });
+  } catch (err) {
+    console.log(err);
+    res.render("notFound");
+  }
+});
+
+router.post("/removeBorrowRequest", authorize("Library"), async (req, res) => {
+  locals = {
+    title: 'Error'
+  };
+  try {
+    if (!req.body['id']) throw new Error();
+    await Borrow.findOneAndDelete({ _id: req.body['id'] });
+
+    res.redirect("/borrowRequests");
+  } catch (err) {
+    console.log(err);
+    res.render("error", {locals});
+  }
+});
+
+
+
+
 
 //-----------------------------------------------------------------------------
 //-----------------------------------------------------------------------------
@@ -297,16 +441,12 @@ router.post(
   ADMIN 
   Finance
 */
-router.get('/admin/finance', (req, res) => {
-
+router.get("/admin/finance", (req, res) => {
   locals = {
     title: "admin/finance",
   };
   res.render("admin/finance", { locals });
 });
-
-
-
 
 //-----------------------------------------------------------------------------
 //-----------------------------------------------------------------------------
@@ -323,7 +463,10 @@ router.get("/admin/media", authorize("Media"), (req, res) => {
   res.render("admin/media", { locals });
 });
 
-router.post("/admin/media/addMediaInformation", authorize("Media"), upload.single("news-events-image-upload"),
+router.post(
+  "/admin/media/addMediaInformation",
+  authorize("Media"),
+  upload.single("news-events-image-upload"),
   async (req, res) => {
     locals = {
       title: "admin/media",
@@ -412,16 +555,15 @@ router.post("/admin/media/addMediaInformation", authorize("Media"), upload.singl
         });
         await Notice.create(newNotice);
       }
-      if (req.body['committee-upload']) {
+      if (req.body["committee-upload"]) {
         const prevCommittee = await Committee.findOne();
         if (prevCommittee) {
-          prevCommittee.committee = req.body['committee-upload'];
+          prevCommittee.committee = req.body["committee-upload"];
           await prevCommittee.save();
-        }
-        else {
+        } else {
           const newCommittee = new Committee({
-            committee: req.body['committee-upload'],
-          })
+            committee: req.body["committee-upload"],
+          });
           await Committee.create(newCommittee);
         }
       }
@@ -439,8 +581,46 @@ router.post("/admin/media/addMediaInformation", authorize("Media"), upload.singl
         }
       }
 
+      const footer = await Footer.findOne();
+      if (footer)
+      {
+        if (req.body['address-upload']) footer.address = req.body['address-upload'];
+        if (req.body['mail-upload']) footer.mail = req.body['mail-upload'];
+        if (req.body['phone-upload']) footer.phone = req.body['phone-upload'];
+        if (req.body['facebook-upload']) footer.facebook = req.body['facebook-upload'];
+
+        await footer.save();
+      }
+      else {
+        const newFooter = new Footer({
+          address: req.body["address-upload"] ? req.body["address-upload"] : "  ",
+          mail: req.body["mail-upload"] ? req.body["mail-upload"] : "  ",
+          phone: req.body["phone-upload"] ? req.body["phone-upload"] : "  ",
+          facebook: req.body["facebook-upload"] ? req.body["facebook-upload"] : "  ",
+        });
+        await Footer.create(newFooter);
+      }
 
       res.redirect("/admin/media");
+    } catch (err) {
+      console.log(err);
+      locals.title = 'Error';
+      res.render("error", );
+    }
+  }
+);
+
+router.get(
+  "/admin/media/showAllVerses",
+  authorize("Media"),
+  async (req, res) => {
+    locals = {
+      title: "All Verses",
+    };
+    try {
+      const quranicVerses = await QuranicVerse.find().sort({ verseNum: 1 });
+      if (!quranicVerses) throw new Error();
+      res.render("admin/verses", { locals, quranicVerses });
     } catch (err) {
       console.log(err);
       res.redirect("/admin/media");
@@ -448,56 +628,44 @@ router.post("/admin/media/addMediaInformation", authorize("Media"), upload.singl
   }
 );
 
-router.get("/admin/media/showAllVerses", authorize("Media"), async (req, res) => {
-  locals = {
-    title: "All Verses",
-  };
-  try {
-    const quranicVerses = await QuranicVerse.find().sort({ verseNum: 1 });
-    if (!quranicVerses) throw new Error();
-    res.render("admin/verses", { locals, quranicVerses });
-  } catch (err) {
-    console.log(err);
-    res.redirect("/admin/media");
-  }
-});
+router.post(
+  "/admin/media/removeMediaInformation",
+  authorize("Media"),
+  async (req, res) => {
+    locals = {
+      title: "admin/media",
+    };
 
-
-router.post("/admin/media/removeMediaInformation", authorize("Media"), async (req, res) => {
-  locals = {
-    title: "admin/media",
-  };
-
-  try {
-
-    if (req.body["quranic-verse-num-remove"]) {
-      await QuranicVerse.deleteOne({
-        verseNum: req.body["quranic-verse-num-remove"]?.toUpperCase().trim(),
-      });
-    }
-
-    if (req.body["news-event-id-remove"]) {
-      const id = req.body["news-event-id-remove"]?.toUpperCase().trim();
-      const array = await NewsEventsPhoto.find({ id: id });
-
-      await NewsEvents.deleteOne({ id: id });
-      await NewsEventsPhoto.deleteMany({ id: id });
-      console.log(array.length);
-      for (let i = 0; i < array.length; i++) {
-        await cloudinary.uploader.destroy(array[i].photoId);
+    try {
+      if (req.body["quranic-verse-num-remove"]) {
+        await QuranicVerse.deleteOne({
+          verseNum: req.body["quranic-verse-num-remove"]?.toUpperCase().trim(),
+        });
       }
+
+      if (req.body["news-event-id-remove"]) {
+        const id = req.body["news-event-id-remove"]?.toUpperCase().trim();
+        const array = await NewsEventsPhoto.find({ id: id });
+
+        await NewsEvents.deleteOne({ id: id });
+        await NewsEventsPhoto.deleteMany({ id: id });
+        console.log(array.length);
+        for (let i = 0; i < array.length; i++) {
+          await cloudinary.uploader.destroy(array[i].photoId);
+        }
+      }
+
+      if (req.body["notice-id-remove"]) {
+        await Notice.deleteOne({
+          id: req.body["notice-id-remove"]?.toUpperCase().trim(),
+        });
+      }
+      res.redirect("/admin/media");
+    } catch (err) {
+      console.log(err);
+      res.redirect("/admin/media");
     }
-    
-    if (req.body["notice-id-remove"]) {
-      await Notice.deleteOne({
-        id: req.body["notice-id-remove"]?.toUpperCase().trim(),
-      });
-    }
-    res.redirect("/admin/media");
-  } catch (err) {
-    console.log(err);
-    res.redirect("/admin/media");
   }
-});
+);
 
 module.exports = router;
