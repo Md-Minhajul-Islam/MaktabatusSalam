@@ -383,15 +383,15 @@ body {
     font-size: 30px;
   }
   .navbar {
-    font-size: 0.7rem;
+    font-size: 0.6rem;
     padding: 0.2rem;
   }
   .navbar a {
-    margin-left: 0.5rem;
+    margin-left: 0.7rem;
   }
   .navbar button {
-    font-size: 0.7rem;
-    margin-left: 0.5rem;
+    font-size: 0.6rem;
+    margin-left: 0.7rem;
   }
   .administration-panel {
     margin-top: 0.2rem;
@@ -950,7 +950,7 @@ body {
   }
 
   .search-form {
-    width: 300px;
+    width: 280px;
     height: 15px;
   }
 
@@ -1043,7 +1043,6 @@ body {
 .book-borrow-table td {
   border: 1px solid rgba(23, 97, 23, 0.758);
   padding: 0.2rem;
-  
 }
 .book-borrow-table td {
   font-weight: 400;
@@ -1060,7 +1059,7 @@ body {
   max-width: 100px;
   font-size: 1rem;
 }
-.book-request-dlt-btn{
+.book-request-dlt-btn {
   border: none;
 }
 .delete-btn {
@@ -1078,7 +1077,6 @@ body {
   padding: 0.2rem;
 }
 
-
 .book-borrower-box {
   margin-top: 3rem;
   display: flex;
@@ -1094,12 +1092,13 @@ body {
 .book-borrower-table td {
   border: 1px solid rgba(23, 97, 23, 0.758);
   padding: 0.2rem;
-  
 }
 .book-borrower-table td {
   font-weight: 400;
 }
-.borrow-date, .due-date, .return-date {
+.borrow-date,
+.due-date,
+.return-date {
   max-width: 100px;
   font-size: 1rem;
 }
@@ -1112,10 +1111,7 @@ body {
   padding: 0.2rem;
 }
 
-
-
 @media (max-width: 600px) {
-
   .book-borrow-box {
     margin-top: 0.5rem;
   }
@@ -1130,12 +1126,10 @@ body {
     max-height: 55px;
   }
   .person-description {
-
     max-width: 200px;
-    
+
     font-size: 0.7rem;
     padding: 0.3rem;
-
   }
   .book-request-time {
     max-width: 100px;
@@ -1144,13 +1138,11 @@ body {
   .delete-btn {
     width: 1.5rem;
     height: 0.8rem;
-
   }
   .book-borrow-title {
     width: 100vw;
     font-size: 1rem;
   }
-
 
   .book-borrower-box {
     margin-top: 0.5rem;
@@ -1165,7 +1157,9 @@ body {
     height: 40px;
     max-height: 55px;
   }
-  .borrow-date, .due-date, .return-date {
+  .borrow-date,
+  .due-date,
+  .return-date {
     max-width: 100px;
     font-size: 0.8rem;
   }
@@ -1174,4 +1168,3 @@ body {
     font-size: 1rem;
   }
 }
-
