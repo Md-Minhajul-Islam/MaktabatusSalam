@@ -510,6 +510,7 @@ router.post(
         if (req.body["message2-author-upload"]) {
           message.message2Author = req.body["message2-author-upload"];
         }
+        await message.save();
       } else if (
         req.body["message1-upload"] &&
         req.body["message1-author-upload"] &&
